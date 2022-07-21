@@ -1,8 +1,6 @@
 package config
 
 import (
-	"fmt"
-
 	"github.com/kelseyhightower/envconfig"
 )
 
@@ -34,5 +32,4 @@ func Get() Configuration {
 
 func Init() {
 	envconfig.MustProcess("MONSTURN", &configuration)
-	fmt.Println(configuration)
 }
