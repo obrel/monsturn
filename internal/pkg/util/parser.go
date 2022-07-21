@@ -38,11 +38,11 @@ func MessageParser(msg string) (*data.TurnData, error) {
 		switch str[0] {
 		case "sentp":
 			stat.SentP = val
-		case "recvp":
+		case "rcvp":
 			stat.RecvP = val
 		case "sentb":
 			stat.SentB = val
-		case "recvb":
+		case "rcvb":
 			stat.RecvB = val
 		}
 	}
