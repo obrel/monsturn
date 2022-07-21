@@ -1,17 +1,34 @@
 package util
 
 import (
+	"errors"
 	"strconv"
 	"strings"
 
 	"github.com/obrel/monsturn/internal/data"
 )
 
-func MessageParser(msg string) (*data.TurnStat, error) {
-	stat := &data.TurnStat{}
-	data := strings.Split(msg, ",")
+func ExtractData(ch string) (*data.ChannelData, error) {
+	str := strings.Split(ch, "/")
 
-	for _, dt := range data {
+	if str[2] == "" || str[4] == "" || str[6] == "" {
+		return nil, errors.New("Invalid channel data.")
+	}
+
+	channel := &data.ChannelData{
+		Realm:      str[2],
+		User:       str[4],
+		Allocation: str[6],
+	}
+
+	return channel, nil
+}
+
+func MessageParser(msg string) (*data.TurnData, error) {
+	stat := &data.TurnData{}
+	str := strings.Split(msg, ",")
+
+	for _, dt := range str {
 		str := strings.Split(strings.Trim(dt, " "), "=")
 		val, err := strconv.ParseInt(str[1], 10, 64)
 		if err != nil {
